@@ -32,6 +32,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Process online API anomaly detection.')
     parser.add_argument('--model', type=str, default='gemini-1.5-flash', help='Model name')
     parser.add_argument('--datadir', type=str, default='/home/jovyan/project/TSB-AD/Datasets/', help='TSB-AD Data Directory')
+    parser.add_argument('--index', type=str, default='number', help='Index type')
+    
     return parser.parse_args()
 
 
@@ -115,7 +117,7 @@ def online_AD_with_retries(
 
     eval_dataset = build_tsb_ad_u_short_dataset(args.datadir)
     
-    index_type = 'timestamp'#'number' 
+    index_type = args.index
     use_image = True if 'vision' in variant.lower() else False
     use_deseasonality = True
     print(f'indextype:{index_type} use_image:{use_image} use_deseason:{use_deseasonality}')
