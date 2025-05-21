@@ -13,15 +13,23 @@ Please follow the installation instructions provided in the AnomLLM repository b
   * AnomLLM: Downloaad "anomllm.zip" in the provied link in README of https://github.com/rose-stl-lab/anomllm
   * TSB-AD-U: Download "Datasets" directory in https://github.com/TheDatumOrg/TSB-AD/tree/main/Datasets
  
-* Requirements
+* Additonal Package Requirements for Our Methods
 ```
 
 ```
 
-* API setting
+* File Structure
 ```
-
-``` 
+LLM-TSAD/
+│
+├── ...
+├── credentials.yml               # For online API
+├── data
+     ├── synthetic                # For AnomLLM benchmark
+├── TSB-AD
+     ├── Datasets                 # For TSB-AD-U benchmark
+└── README.md                     # This file
+```
 
 # Run Our Method
 
