@@ -12,11 +12,8 @@ Please follow the installation instructions provided in the AnomLLM repository b
 * Dataset Download
   * AnomLLM: Downloaad "anomllm.zip" in the provied link in README of https://github.com/rose-stl-lab/anomllm
   * TSB-AD-U: Download "Datasets" directory in https://github.com/TheDatumOrg/TSB-AD/tree/main/Datasets
- 
-* Additonal Package Requirements for Our Methods
-```
 
-```
+* For Qwen and InternVL models, we use [LMDeploy](https://lmdeploy.readthedocs.io/en/latest/#).
 
 * File Structure
 ```
