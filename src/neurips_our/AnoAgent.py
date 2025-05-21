@@ -21,9 +21,6 @@ from neurips_our.prompts import make_simple_prompt, make_simple_wo_text_seq_prom
 
 from openai_api import send_openai_request
 
-from qwen_vl_utils import process_vision_info
-from transformers import Qwen2VLForConditionalGeneration, AutoTokenizer, AutoProcessor
-
 class AnoAgent:
     def __init__(self, data_name, llm_model, index_type=None, max_ts_len=1000, min_acf_period=24, value_scale=10):
         self.data_name = data_name

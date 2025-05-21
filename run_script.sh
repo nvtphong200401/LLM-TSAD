@@ -14,7 +14,7 @@ for data in "${data_list[@]}"; do
   for model in "${model_list[@]}"; do
     for variant in "${variant_list[@]}"; do
       echo "Running: data=${data}, model=${model}, variant=${variant}"
-      python src/LLM-TSAD_api.py --data "$data" --model "$model" --variant "$variant"
+      python src/LLM-TSAD-AnomLLM_api.py --data "$data" --model "$model" --variant "$variant"
     done
   done
 done
