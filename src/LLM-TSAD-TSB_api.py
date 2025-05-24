@@ -126,10 +126,7 @@ def online_AD_with_retries(
 
     # Load existing results if jsonl file exists
     if os.path.exists(jsonl_fn):
-        with open(jsonl_fn, 'r') as f:
-            for line in f:
-                entry = json.loads(line.strip())
-                results[entry['custom_id']] = entry["response"]
+        open(jsonl_fn, 'w').close()
 
     # Loop over image files
     for i in range(1, len(eval_dataset) + 1):

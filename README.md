@@ -32,7 +32,7 @@ LLM-TSAD/
 
 ## Experiemntal Results on AnomLLM Benchmark
 
-1. Run online api
+1. Run online api (For convenience, we have saved the results of the previous run in the ./results/ directory. Therefore, you can proceed directly to step 2.)
 ```
 python src/LLM-TSAD-AnomLLM_api.py --model gemini-1.5-flash --data trend --variant 0shot-text-vision
 ```
@@ -44,7 +44,7 @@ python ./src/result_agg_by_model.py --model gemini-1.5-flash --benchmark anomllm
 
 ## Experiemntal Results on TSB-AD-U Benchmark
 
-1. Run online api
+1. Run online api (For convenience, we have saved the results of the previous run in the ./results/ directory. Therefore, you can proceed directly to step 2.)
 ```
 python src/LLM-TSAD-TSB_api.py --model gemini-1.5-flash --datadir ./TSB-AD/Datasets
 ```
