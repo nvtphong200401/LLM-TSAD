@@ -2,7 +2,7 @@
 *.zip
 *.csv
 *.pkl
-*.jsonl
+# *.jsonl
 *.npy
 *.txt
 # Byte-compiled / optimized / DLL files
@@ -169,7 +169,6 @@ cython_debug/
 #.idea/
 
 /data/
-/results/
 /logs/
 /archive/
 /credentials.yml
