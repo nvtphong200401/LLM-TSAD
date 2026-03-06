@@ -1,13 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import time
-import re
-import json
-import math
-import glob
-import torch
-import base64
 from io import BytesIO
 import matplotlib.image as mpimg
 
@@ -55,8 +48,8 @@ def online_AD_with_retries(
     log_fn = f"logs/synthetic/{data_name}/{model_name}/" + variant + ".log"
     logger.add(log_fn, format="{time} {level} {message}", level="INFO")
     results_dir = f'results/synthetic/{data_name}/{model_name}/'
-    data_dir = f'data/synthetic/{data_name}/eval/'
-    train_dir = f'data/synthetic/{data_name}/train/'
+    data_dir = f'src/data/synthetic/{data_name}/eval/'
+    train_dir = f'src/data/synthetic/{data_name}/train/'
     jsonl_fn = os.path.join(results_dir, variant + '.jsonl')
     os.makedirs(results_dir, exist_ok=True)
 

@@ -46,10 +46,29 @@ print(result_paths)
 
 all_results = []
 for path in result_paths:
-    result_df = pd.read_json(path, lines=True)
+    # Check if file exists before trying to read it
+    import os
+    if not os.path.exists(path):
+        print(f"[!] WARNING: File not found: {path} (skipping)")
+        print()
+        continue
+
+    # Check if file is empty
+    if os.path.getsize(path) == 0:
+        print(f"[!] WARNING: File is empty: {path} (skipping)")
+        print()
+        continue
+
+    try:
+        result_df = pd.read_json(path, lines=True)
+    except Exception as e:
+        print(f"[!] ERROR reading {path}: {e}")
+        print()
+        continue
+
     result_df['cate'] = result_df['custom_id'].apply(lambda x: x.split('_')[0])
-    print(path, result_df.shape)     
-    
+    print(path, result_df.shape)
+
     if agg_per_data:
         for cate in result_df.cate.value_counts().index.tolist():
             a =  average_dict_values(result_df[result_df.cate == cate]['metrics'].tolist())
@@ -69,9 +88,20 @@ for path in result_paths:
     print()
     
     
-a = average_dict_values(all_results)
-log_str = []
-for k, v in a.items():
-    log_str.append(f'{v*100:.2f}')
-print('\t'.join(log_str))
+if len(all_results) > 0:
+    print("="*70)
+    print(f"AVERAGE ACROSS ALL DATASETS (based on {len(all_results)} result(s)):")
+    print("="*70)
+    a = average_dict_values(all_results)
+    log_str = []
+    for k, v in a.items():
+        log_str.append(f'{v*100:.2f}')
+    print('\t'.join(log_str))
+else:
+    print("="*70)
+    print("[!] WARNING: No valid result files found. Please run experiments first.")
+    print("="*70)
+    print("\nTo run experiments, use:")
+    print(f"  python src/LLM-TSAD-AnomLLM_api.py --model {args.model} --data <dataset> --variant {args.variant}")
+    print("\nAvailable datasets: trend, freq, point, range")
     

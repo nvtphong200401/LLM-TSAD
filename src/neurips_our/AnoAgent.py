@@ -20,6 +20,7 @@ from neurips_our.preprocessing_seq import find_period_autocorr, map_to_timestamp
 from neurips_our.prompts import make_simple_prompt, make_simple_wo_text_seq_prompt, make_simple_wo_index_prompt, make_simple_num_index_prompt, extract_timestamp_dicts, make_anomllm_prompt
 
 from openai_api import send_openai_request
+from azure_api import send_azure_openai_request
 
 class AnoAgent:
     def __init__(self, data_name, llm_model, index_type=None, max_ts_len=1000, min_acf_period=24, value_scale=10):
@@ -38,9 +39,13 @@ class AnoAgent:
         elif self.llm_model in ['gemini-1.5-flash']:
             self.send_request = send_openai_request
             self.make_request = self.make_openai_request
-        elif self.llm_model in ['OpenGVLab/InternVL2-Llama3-76B', 
-                                'Qwen/Qwen-VL-Chat', 
-                                'Qwen/Qwen2.5-VL-3B-Instruct', 
+        elif self.llm_model.startswith('azure-'):
+            # Azure OpenAI models (format: azure-{deployment-name})
+            self.send_request = send_azure_openai_request
+            self.make_request = self.make_openai_request
+        elif self.llm_model in ['OpenGVLab/InternVL2-Llama3-76B',
+                                'Qwen/Qwen-VL-Chat',
+                                'Qwen/Qwen2.5-VL-3B-Instruct',
                                 'Qwen/Qwen2.5-VL-72B-Instruct']:
             self.send_request = send_openai_request
             self.make_request = self.make_openai_request

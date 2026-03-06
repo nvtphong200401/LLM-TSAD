@@ -435,7 +435,7 @@ class SyntheticDataset(Dataset):
 
     def __init__(
         self,
-        data_dir="data/synthetic/range/",
+        data_dir="src/data/synthetic/range/",
         synthetic_func_name="synthetic_dataset_with_out_of_range_anomalies",
     ):
         self.data_dir = data_dir
