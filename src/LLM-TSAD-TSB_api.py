@@ -30,9 +30,9 @@ import argparse
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Process online API anomaly detection.')
+    parser.add_argument('--variant', type=str, default='0shot-text-vision', help='Variant type')
     parser.add_argument('--model', type=str, default='gemini-1.5-flash', help='Model name')
     parser.add_argument('--datadir', type=str, default='/home/jovyan/project/TSB-AD/Datasets/', help='TSB-AD Data Directory')
-    parser.add_argument('--index', type=str, default='number', help='Index type')
     
     return parser.parse_args()
 
@@ -95,6 +95,7 @@ def build_tsb_ad_u_short_dataset(datadir='/home/jovyan/project/TSB-AD/Datasets/'
     
 def online_AD_with_retries(
     model_name: str,
+    variant: str = '0shot-text-vision',
     num_retries: int = 4,
 ):
     import json
@@ -106,9 +107,13 @@ def online_AD_with_retries(
     args = parse_arguments()
     results = {}
     
-        # Configure logger
+    # Validate variant
+    supported_variants = ['0shot-text', '0shot-text-vision', '0shot-text-cot', '0shot-text-vision-cot']
+    if variant.lower() not in supported_variants:
+        raise Exception(f'Not supported variant: {variant}. Supported: {supported_variants}')
+
+    # Configure logger
     data_name = 'tsb-ad-u'
-    variant = '0shot-text-vision'
     log_fn = f"logs/{data_name}/{model_name}/" + variant + ".log"
     logger.add(log_fn, format="{time} {level} {message}", level="INFO")
     results_dir = f'results/{data_name}/{model_name}/'
@@ -117,7 +122,8 @@ def online_AD_with_retries(
 
     eval_dataset = build_tsb_ad_u_short_dataset(args.datadir)
     
-    index_type = args.index
+    # Derive index_type from variant
+    index_type = 'number-cot' if 'cot' in variant.lower() else 'number'
     use_image = True if 'vision' in variant.lower() else False
     use_deseasonality = True
     print(f'indextype:{index_type} use_image:{use_image} use_deseason:{use_deseasonality}')
@@ -186,6 +192,7 @@ def main():
     args = parse_arguments()
     online_AD_with_retries(
         model_name=args.model,
+        variant=args.variant,
     )
 
 

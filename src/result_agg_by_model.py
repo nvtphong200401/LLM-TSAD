@@ -70,21 +70,23 @@ for path in result_paths:
     print(path, result_df.shape)
 
     if agg_per_data:
+        rows = []
         for cate in result_df.cate.value_counts().index.tolist():
-            a =  average_dict_values(result_df[result_df.cate == cate]['metrics'].tolist())
-            log_str = [cate]
-            for k, v in a.items():
-                log_str.append(f'{v*100:.2f}')
-            print('\t'.join(log_str))
+            a = average_dict_values(result_df[result_df.cate == cate]['metrics'].tolist())
+            row = {k: f'{v*100:.2f}' for k, v in a.items()}
+            row['category'] = cate
+            rows.append(row)
             all_results.append(a)
+        df_table = pd.DataFrame(rows).set_index('category')
+        print(df_table.to_string())
     else:
-        a =  average_dict_values(result_df['metrics'].tolist())
-        log_str = []
-        for k, v in a.items():
-            log_str.append(f'{v*100:.2f}')
-        print('\t'.join(log_str))
-
+        a = average_dict_values(result_df['metrics'].tolist())
+        dataset_name = path.split('/')[-3] if '/' in path else path
+        row = {k: f'{v*100:.2f}' for k, v in a.items()}
+        row['dataset'] = dataset_name
         all_results.append(a)
+        df_table = pd.DataFrame([row]).set_index('dataset')
+        print(df_table.to_string())
     print()
     
     
@@ -93,10 +95,10 @@ if len(all_results) > 0:
     print(f"AVERAGE ACROSS ALL DATASETS (based on {len(all_results)} result(s)):")
     print("="*70)
     a = average_dict_values(all_results)
-    log_str = []
-    for k, v in a.items():
-        log_str.append(f'{v*100:.2f}')
-    print('\t'.join(log_str))
+    row = {k: f'{v*100:.2f}' for k, v in a.items()}
+    row[''] = 'average'
+    df_table = pd.DataFrame([row]).set_index('')
+    print(df_table.to_string())
 else:
     print("="*70)
     print("[!] WARNING: No valid result files found. Please run experiments first.")
