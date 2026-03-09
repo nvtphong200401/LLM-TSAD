@@ -134,7 +134,7 @@ LLM-TSAD/
 └── credentials.yml         # API credentials (not in repo)
 ```
 
-## Supported Models
+## Supported Models 
 
 - **OpenAI**: `gpt-4o`, `gpt-4o-mini`
 - **Google Gemini**: `gemini-1.5-flash`
