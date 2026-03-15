@@ -44,8 +44,11 @@ class AnoAgent:
             self.send_request = send_azure_openai_request
             self.make_request = self.make_openai_request
         elif self.llm_model in ['OpenGVLab/InternVL2-Llama3-76B',
+                                'OpenGVLab/InternVL2-8B',
+                                'OpenGVLab/InternVL3-8B',
                                 'Qwen/Qwen-VL-Chat',
                                 'Qwen/Qwen2.5-VL-3B-Instruct',
+                                'Qwen/Qwen2.5-VL-7B-Instruct',
                                 'Qwen/Qwen2.5-VL-72B-Instruct']:
             self.send_request = send_openai_request
             self.make_request = self.make_openai_request
